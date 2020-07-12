@@ -16,8 +16,14 @@ namespace DotnetCoreCrud.Data.Contexts
             Database.SetCommandTimeout(120);
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
-            optionsBuilder.UseMySql(DatabaseConfiguration.ConnectionString);
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            Console.WriteLine(DatabaseConfiguration.ConnectionString);
+            optionsBuilder.UseMySql(DatabaseConfiguration.ConnectionString, optinos =>
+               {
+                   optinos.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
+               });
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

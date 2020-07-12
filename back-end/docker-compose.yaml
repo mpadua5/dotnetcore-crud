@@ -7,14 +7,11 @@ services:
       - 3306
     ports:
       - "3306:3306"
-    env_file: 
-      - ./.env
     environment: 
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_DATABASE: ${MYSQL_DB}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
-  
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}  
+
   backend:
     build: .
     image: "api-${APPLICATION_NAME}"
@@ -23,5 +20,10 @@ services:
       - 19000
     ports: 
       - "19000:19000"
+    environment: 
+      DB_HOST: db
+      DB_USER: ${DB_USER}
+      DB_NAME: ${DB_NAME}
+      DB_PASSWORD: ${DB_PASSWORD}
     depends_on: 
       - db
