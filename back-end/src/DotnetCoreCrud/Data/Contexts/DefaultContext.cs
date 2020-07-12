@@ -18,7 +18,6 @@ namespace DotnetCoreCrud.Data.Contexts
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            Console.WriteLine(DatabaseConfiguration.ConnectionString);
             optionsBuilder.UseMySql(DatabaseConfiguration.ConnectionString, optinos =>
                {
                    optinos.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);

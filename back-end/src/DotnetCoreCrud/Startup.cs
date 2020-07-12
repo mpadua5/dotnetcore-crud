@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 
 namespace DotnetCoreCrud
 {
@@ -33,6 +34,24 @@ namespace DotnetCoreCrud
             services.AddControllers();
 
             services.AddDbContext<DefaultContext>();
+
+            services.AddSingleton(Configuration);
+            DependencyInjectionConfiguration.RegisterServices(services);
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "Dotnetcore - CRUD",
+                    Description = "A test ASP.NET Core Web API",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Maurício Pádua",
+                        Email = "mauricio_p0@hotmail.com"
+                    }
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,16 +70,16 @@ namespace DotnetCoreCrud
                 endpoints.MapControllers();
             });
 
-            
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Dotnetcore-CRUD v1");
+                c.RoutePrefix = "swagger";
+            });
 
             using (var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
-                Console.WriteLine(string.Format("{0} - {1} - {2} - {3}",
-                    Environment.GetEnvironmentVariable("DB_HOST"),
-                    Environment.GetEnvironmentVariable("DB_USER"),
-                    Environment.GetEnvironmentVariable("DB_PASSWORD"),
-                    Environment.GetEnvironmentVariable("DB_NAME")
-                ));
                 scope.ServiceProvider.GetService<DefaultContext>().Database.Migrate();
             }
         }
