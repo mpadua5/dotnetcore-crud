@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using DotnetCoreCrud.Domain.Entities;
 using DotnetCoreCrud.Domain.Interfaces.Repositories;
-using DotnetCoreCrud.Domain.Services;
+using DotnetCoreCrud.Domain.Interfaces.Services;
 
 namespace DotnetCoreCrud.Services
 {
@@ -16,8 +16,13 @@ namespace DotnetCoreCrud.Services
 
         public void Add(Category category)
         {
-            category.Guid = new Guid();
-            _categoryRepository.Add(category);
+            Category item = new Category
+            {
+                Guid = new Guid(),
+                Description = category.Description,
+                Products = null
+            };
+            _categoryRepository.Add(item);
         }
 
         public IEnumerable<Category> GetAll()

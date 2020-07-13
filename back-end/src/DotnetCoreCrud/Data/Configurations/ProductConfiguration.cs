@@ -42,7 +42,9 @@ namespace DotnetCoreCrud.Data.Configurations
 
             builder
                 .HasOne(product => product.Category)
-                .WithMany(category => category.Products);
+                .WithMany(category => category.Products)
+                .HasForeignKey("product_category")
+                .IsRequired();
         }
     }
 }

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DotnetCoreCrud.Data.Migrations
 {
     [DbContext(typeof(DefaultContext))]
-    [Migration("20200710144305_InitialCreate")]
+    [Migration("20200713174036_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -61,12 +61,13 @@ namespace DotnetCoreCrud.Data.Migrations
                         .HasColumnName("unity")
                         .HasColumnType("char(3)");
 
-                    b.Property<Guid?>("category")
+                    b.Property<Guid?>("product_category")
+                        .IsRequired()
                         .HasColumnType("char(36)");
 
                     b.HasKey("Guid");
 
-                    b.HasIndex("category");
+                    b.HasIndex("product_category");
 
                     b.ToTable("Product");
                 });
@@ -75,7 +76,9 @@ namespace DotnetCoreCrud.Data.Migrations
                 {
                     b.HasOne("DotnetCoreCrud.Domain.Entities.Category", "Category")
                         .WithMany("Products")
-                        .HasForeignKey("category");
+                        .HasForeignKey("product_category")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

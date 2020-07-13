@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using DotnetCoreCrud.Domain.Entities;
 
-namespace DotnetCoreCrud.Domain.Services
+namespace DotnetCoreCrud.Domain.Interfaces.Services
 {
     public interface ICategoryService
     {

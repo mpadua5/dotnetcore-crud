@@ -28,23 +28,23 @@ namespace DotnetCoreCrud.Data.Migrations
                     unit_value = table.Column<decimal>(type: "decimal(6,2)", nullable: false),
                     amount = table.Column<float>(type: "float(6,3)", nullable: false),
                     unity = table.Column<string>(type: "char(3)", nullable: false),
-                    category = table.Column<Guid>(nullable: true)
+                    product_category = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Product", x => x.guid);
                     table.ForeignKey(
-                        name: "FK_Product_Category_category",
-                        column: x => x.category,
+                        name: "FK_Product_Category_product_category",
+                        column: x => x.product_category,
                         principalTable: "Category",
                         principalColumn: "guid",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Product_category",
+                name: "IX_Product_product_category",
                 table: "Product",
-                column: "category");
+                column: "product_category");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

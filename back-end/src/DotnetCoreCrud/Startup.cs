@@ -80,7 +80,7 @@ namespace DotnetCoreCrud
 
             using (var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
-                scope.ServiceProvider.GetService<DefaultContext>().Database.Migrate();
+                scope.ServiceProvider.GetService<DefaultContext>().Database.Migrate();                
             }
         }
     }

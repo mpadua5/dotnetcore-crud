@@ -1,6 +1,6 @@
 ﻿using System;
 using DotnetCoreCrud.Domain.Entities;
-using DotnetCoreCrud.Domain.Services;
+using DotnetCoreCrud.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 

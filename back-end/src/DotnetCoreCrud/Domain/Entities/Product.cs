@@ -21,7 +21,6 @@ namespace DotnetCoreCrud.Domain.Entities
         [DataMember]
         public int Unity { get; set; }
         [DataMember]
-        [ForeignKey("category")]
         public Category Category { get; set; }
     }
 }

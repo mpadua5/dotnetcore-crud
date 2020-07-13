@@ -12,18 +12,18 @@ services:
       MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_DATABASE: ${DB_NAME}  
 
-  backend:
-    build: .
-    image: "api-${APPLICATION_NAME}"
-    container_name: "api-${APPLICATION_NAME}"
-    expose: 
-      - 19000
-    ports: 
-      - "19000:19000"
-    environment: 
-      DB_HOST: db
-      DB_USER: ${DB_USER}
-      DB_NAME: ${DB_NAME}
-      DB_PASSWORD: ${DB_PASSWORD}
-    depends_on: 
-      - db
+  # backend:
+  #   build: .
+  #   image: "api-${APPLICATION_NAME}"
+  #   container_name: "api-${APPLICATION_NAME}"
+  #   expose: 
+  #     - 19000
+  #   ports: 
+  #     - "19000:19000"
+  #   environment: 
+  #     DB_HOST: db
+  #     DB_USER: ${DB_USER}
+  #     DB_NAME: ${DB_NAME}
+  #     DB_PASSWORD: ${DB_PASSWORD}
+  #   depends_on: 
+  #     - db
