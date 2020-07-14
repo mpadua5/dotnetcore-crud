@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DotnetCoreCrud.Domain.Entities;
 using DotnetCoreCrud.Domain.Interfaces.Repositories;
 using DotnetCoreCrud.Domain.Interfaces.Services;
+using DotnetCoreCrud.Factories;
 
 namespace DotnetCoreCrud.Services
 {
@@ -14,9 +15,9 @@ namespace DotnetCoreCrud.Services
             _productRepository = productRepository;
         }
 
-        public void Add(Product product)
+        public ReturnFactory Add(Product product)
         {
-            _productRepository.Add(product);
+            return _productRepository.Add(product).Result;
         }
 
         public IEnumerable<Product> GetAll()
@@ -29,14 +30,14 @@ namespace DotnetCoreCrud.Services
             return _productRepository.GetByGuid(guid);
         }
 
-        public void Remove(Guid guid)
+        public ReturnFactory Remove(Guid guid)
         {
-            _productRepository.Remove(guid);
+            return _productRepository.Remove(guid).Result;
         }
 
-        public void Update(Product product)
+        public ReturnFactory Update(Product product)
         {
-            _productRepository.Update(product);
+            return _productRepository.Update(product).Result;
         }
     }
 }

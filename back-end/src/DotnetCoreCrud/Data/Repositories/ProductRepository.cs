@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using DotnetCoreCrud.Data.Contexts;
 using DotnetCoreCrud.Domain.Entities;
 using DotnetCoreCrud.Domain.Interfaces.Repositories;
+using DotnetCoreCrud.Factories;
 using Microsoft.EntityFrameworkCore;
 
 namespace DotnetCoreCrud.Data.Repositories
@@ -16,11 +18,29 @@ namespace DotnetCoreCrud.Data.Repositories
             _context = context;
         }
 
-        public void Add(Product product)
+        public async Task<ReturnFactory> Add(Product product)
         {
-            _context.Entry(product).State = EntityState.Added;
-            _context.Set<Product>().Add(product);
-            _context.SaveChanges();
+            try
+            {
+                _context.Entry(product).State = EntityState.Added;
+                _context.Set<Product>().Add(product);
+                await _context.SaveChangesAsync();
+                Console.WriteLine("[SUCCESS] - Product successfully inserted");
+                return new ReturnFactory
+                {
+                    Code = 1,
+                    Message = "Product successfully inserted"
+                };
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("[ERROR] - Product insert error - {0}", e.ToString());
+                return new ReturnFactory
+                {
+                    Code = 11,
+                    Message = "It was not possible to insert the product, check the data provided."
+                };
+            }            
         }
 
         public IEnumerable<Product> GetAll()
@@ -33,36 +53,71 @@ namespace DotnetCoreCrud.Data.Repositories
             return _context.Set<Product>().Find(guid);
         }
 
-        public void Remove(Guid guid)
+        public async Task<ReturnFactory> Remove(Guid guid)
         {
-            var product = GetByGuid(guid);
+            try
+            {
+                var product = GetByGuid(guid);
 
-            //_context.Set<Product>().Remove(product);
-            _context.Entry(product).State = EntityState.Deleted;
-            _context.SaveChanges();
+                _context.Entry(product).State = EntityState.Deleted;
+                await _context.SaveChangesAsync();
+                Console.WriteLine("[SUCCESS] - Product successfully removed");
+                return new ReturnFactory
+                {
+                    Code = 1,
+                    Message = "Product successfully removed."
+                };
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("[ERROR] - Product removal error - {0}", e.ToString());
+                return new ReturnFactory
+                {
+                    Code = 13,
+                    Message = "It was not possible to remove the product, check the data provided."
+                };
+            }            
         }
 
-        public void Update(Product product)
+        public async Task<ReturnFactory> Update(Product product)
         {
-            var local = _context.Set<Category>().Local.FirstOrDefault(category => category.Guid.Equals(product.Category.Guid));
-            if (local != null)
+            try
             {
-                _context.Entry(local).State = EntityState.Detached;
+                var local = _context.Set<Category>().Local.FirstOrDefault(category => category.Guid.Equals(product.Category.Guid));
+                if (local != null)
+                {
+                    _context.Entry(local).State = EntityState.Detached;
+                }
+
+                var item = GetByGuid(product.Guid);
+                item.Description = product.Description;
+                item.Amount = product.Amount;
+                item.UnitValue = product.UnitValue;
+                item.Unity = product.Unity;
+                item.Category = new Category
+                {
+                    Guid = product.Category.Guid,
+                    Description = product.Category.Description
+                };
+
+                _context.Entry(item).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+                Console.WriteLine("[SUCCESS] - Product updated successfully");
+                return new ReturnFactory
+                {
+                    Code = 1,
+                    Message = "Product updated successfully"
+                };
             }
-
-            var item = GetByGuid(product.Guid);
-            item.Description = product.Description;
-            item.Amount = product.Amount;
-            item.UnitValue = product.UnitValue;
-            item.Unity = product.Unity;
-            item.Category = new Category
+            catch (Exception e)
             {
-                Guid = product.Category.Guid,
-                Description = product.Category.Description
-            };
-
-            _context.Entry(item).State = EntityState.Modified;
-            _context.SaveChanges();
+                Console.WriteLine("[ERROR] - Product update error - {0}", e.ToString());
+                return new ReturnFactory
+                {
+                    Code = 12,
+                    Message = "It was not possible to update the product, check the data provided."
+                };
+            }
         }
     }
 }

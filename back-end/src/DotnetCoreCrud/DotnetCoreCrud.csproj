@@ -14,10 +14,11 @@
     <Folder Include="Configurations\" />
     <Folder Include="Services\" />
     <Folder Include="Domain\Interfaces\Services\" />
-    <Folder Include="Data\Intefaces\" />
     <Folder Include="Data\Repositories\" />
     <Folder Include="Domain\Interfaces\" />
     <Folder Include="Domain\Interfaces\Repositories\" />
+    <Folder Include="Factories\" />
+    <Folder Include="Enums\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
@@ -29,5 +30,8 @@
     </PackageReference>
     <PackageReference Include="DotNetEnv" Version="1.4.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.5.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.5" />
   </ItemGroup>
 </Project>

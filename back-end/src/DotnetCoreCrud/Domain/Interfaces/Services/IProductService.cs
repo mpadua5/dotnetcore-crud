@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using DotnetCoreCrud.Domain.Entities;
+using DotnetCoreCrud.Factories;
 
 namespace DotnetCoreCrud.Domain.Interfaces.Services
 {
     public interface IProductService
     {
-        void Add(Product product);
+        ReturnFactory Add(Product product);
         Product GetByGuid(Guid guid);
         IEnumerable<Product> GetAll();
-        void Update(Product product);
-        void Remove(Guid guid);
+        ReturnFactory Update(Product product);
+        ReturnFactory Remove(Guid guid);
     }
 }

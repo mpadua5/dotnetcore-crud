@@ -16,10 +16,10 @@ namespace DotnetCoreCrud.Data.Repositories
             _context = context;
         }
 
-        public void Add(Category category)
+        public async void Add(Category category)
         {
             _context.Set<Category>().Add(category);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
         public IEnumerable<Category> GetAll()
@@ -32,21 +32,21 @@ namespace DotnetCoreCrud.Data.Repositories
             return _context.Set<Category>().Find(guid);
         }
 
-        public void Remove(Guid guid)
+        public async void Remove(Guid guid)
         {
             var category = GetByGuid(guid);
 
             _context.Set<Category>().Remove(category);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void Update(Category category)
+        public async void Update(Category category)
         {
             var item = GetByGuid(category.Guid);
             item.Description = category.Description;
 
             _context.Entry(item).State = EntityState.Modified;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }
