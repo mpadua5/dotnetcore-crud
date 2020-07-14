@@ -43,17 +43,11 @@ namespace DotnetCoreCrud.Controllers
         public ActionResult Add([FromBody] Category category)
         {
             Console.WriteLine("Add category");
-            try
-            {
-                _categoryService.Add(category);
-                Console.WriteLine("[SUCCESS] - Category successfully inserted");
-                return Ok("Category successfully inserted");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("[ERROR] - Category insertion error - {0}", e.ToString());
-                return StatusCode(500, e.Message);
-            }
+            var ret = _categoryService.Add(category);
+            if (ret.Code == 1)
+                return Ok(ret);
+            else
+                return StatusCode(500, ret);
         }
 
         [HttpPut]
@@ -62,17 +56,11 @@ namespace DotnetCoreCrud.Controllers
         public ActionResult Update([FromBody] Category category)
         {
             Console.WriteLine("Update category");
-            try
-            {
-                _categoryService.Update(category);
-                Console.WriteLine("[SUCCESS] - Category updated successfully");
-                return Ok("Category updated successfully");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("[ERROR] - Category update error - {0}", e.ToString());
-                return StatusCode(500, e.Message);
-            }
+            var ret = _categoryService.Update(category);
+            if (ret.Code == 1)
+                return Ok(ret);
+            else
+                return StatusCode(500, ret);
         }
 
         [HttpDelete]
@@ -81,17 +69,11 @@ namespace DotnetCoreCrud.Controllers
         public ActionResult Remove([FromRoute] Guid guid)
         {
             Console.WriteLine("Remove category");
-            try
-            {
-                _categoryService.Remove(guid);
-                Console.WriteLine("[SUCCESS] - Category successfully removed");
-                return Ok("Category successfully removed");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("[ERROR] - Category removal error - {0}", e.ToString());
-                return StatusCode(500, e.Message);
-            }
+            var ret = _categoryService.Remove(guid);
+            if (ret.Code == 1)
+                return Ok(ret);
+            else
+                return StatusCode(500, ret);
         }
 
     }

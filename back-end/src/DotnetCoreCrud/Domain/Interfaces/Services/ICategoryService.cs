@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using DotnetCoreCrud.Domain.Entities;
+using DotnetCoreCrud.Factories;
 
 namespace DotnetCoreCrud.Domain.Interfaces.Services
 {
     public interface ICategoryService
     {
-        void Add(Category category);
+        ReturnFactory Add(Category category);
         Category GetByGuid(Guid guid);
         IEnumerable<Category> GetAll();
-        void Update(Category category);
-        void Remove(Guid guid);
+        ReturnFactory Update(Category category);
+        ReturnFactory Remove(Guid guid);
     }
 }

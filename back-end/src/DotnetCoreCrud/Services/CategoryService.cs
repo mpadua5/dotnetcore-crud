@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DotnetCoreCrud.Domain.Entities;
 using DotnetCoreCrud.Domain.Interfaces.Repositories;
 using DotnetCoreCrud.Domain.Interfaces.Services;
+using DotnetCoreCrud.Factories;
 
 namespace DotnetCoreCrud.Services
 {
@@ -14,7 +15,7 @@ namespace DotnetCoreCrud.Services
             _categoryRepository = categoryRepository;
         }
 
-        public void Add(Category category)
+        public ReturnFactory Add(Category category)
         {
             Category item = new Category
             {
@@ -22,7 +23,7 @@ namespace DotnetCoreCrud.Services
                 Description = category.Description,
                 Products = null
             };
-            _categoryRepository.Add(item);
+            return _categoryRepository.Add(item).Result;
         }
 
         public IEnumerable<Category> GetAll()
@@ -35,14 +36,14 @@ namespace DotnetCoreCrud.Services
             return _categoryRepository.GetByGuid(guid);
         }
 
-        public void Remove(Guid guid)
+        public ReturnFactory Remove(Guid guid)
         {
-            _categoryRepository.Remove(guid);
+            return _categoryRepository.Remove(guid).Result;
         }
 
-        public void Update(Category category)
+        public ReturnFactory Update(Category category)
         {
-            _categoryRepository.Update(category);
+            return _categoryRepository.Update(category).Result;
         }
     }
 }
