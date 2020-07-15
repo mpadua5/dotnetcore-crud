@@ -1,9 +1,9 @@
 <template>
   <List
     :componentType="componentType"
-    :list="listProduct"
-    :headerName="'Products'"
-    :destiny="{ description: 'Category registration', url: '/category' }"
+    :list="listCategory"
+    :headerName="'Category'"
+    :destiny="{ description: 'Product registration', url: '/' }"
     :isRemoveLoading="isRemoveLoading"
     @loadList="loadItens"
     @removeItem="removeItem"
@@ -12,11 +12,10 @@
 
 <script>
 import List from "../components/List";
-import { ProductService } from "../services";
-import { UnitysUtil } from "../utils";
+import { CategoryService } from "../services";
 
 export default {
-  name: "Index",
+  name: "Category",
   components: {
     List
   },
@@ -25,26 +24,22 @@ export default {
   },
   data: () => ({
     isRemoveLoading: false,
-    componentType: "PRODUCT",
-    listProduct: []    
+    componentType: "CATEGORY",
+    listCategory: []
   }),
   methods: {
     loadItens() {
-      ProductService.getAll()
+      CategoryService.getAll()
       .then(result => {
-        this.listProduct = result.data;
-        this.listProduct.map(item => {
-          item.Unity = UnitysUtil.getUnityDescription(item.Unity);
-          item.Category = item.Category != null ? item.Category.Description : null;
-        });
+        this.listCategory = result.data;
       })
       .catch(() => {
-        this.listProduct = [];
+        this.listCategory = [];
       });
     },
     removeItem(obj) {
       this.isRemoveLoading = true;
-      ProductService.delete(obj.Guid)
+      CategoryService.delete(obj.Guid)
         .then(() => {
             this.isRemoveLoading = false;
             this.loadItens();

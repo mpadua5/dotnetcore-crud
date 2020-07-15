@@ -7,7 +7,7 @@
           <md-icon>add</md-icon>
         </md-button>
       </md-table-toolbar>
-      <a href="/teste" class="mb-5"><h4 class="mx-6">{{this.destiny.description}}</h4></a>
+      <a :href="this.destiny.url" class="mb-5"><h4 class="mx-6">{{this.destiny.description}}</h4></a>
 
       <md-table-row>
         <md-table-head v-for="itemHeader in listHeader" :key="itemHeader">{{itemHeader}}</md-table-head>

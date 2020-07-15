@@ -15,6 +15,11 @@
                 :product="{...obj}" 
                 @close="() => this.$emit('close')"
               />
+              <form-category 
+                v-if="componentType == 'CATEGORY'" 
+                :category="{...obj}" 
+                @close="() => this.$emit('close')"
+              />
           </div>
         </div>
       </div>
@@ -24,11 +29,13 @@
 
 <script>
 import FormProduct from './FormProduct'
+import FormCategory from './FormCategory'
 
 export default {
   name: "Modal",
   components: {
-      FormProduct
+      FormProduct,
+      FormCategory
   },
   props: {
       componentType: String,

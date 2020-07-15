@@ -13,5 +13,40 @@ export default {
                 }
             });
         });        
+    },
+    post(obj) {
+        return jwt.then(result => {
+            const { data } = result
+            return apiRequere.post("api/category",
+                obj,
+                {
+                    headers: {
+                        'Authorization': `Bearer ${data.jwtPass}`
+                    }
+                });
+        });
+    },
+    put(obj) {
+        return jwt.then(result => {
+            const { data } = result
+            return apiRequere.put("api/category",
+                obj,
+                {
+                    headers: {
+                        'Authorization': `Bearer ${data.jwtPass}`
+                    }
+                });
+        });
+    },
+    delete(guid) {
+        return jwt.then(result => {
+            const { data } = result
+            return apiRequere.delete(`api/category/${guid}`,
+                {
+                    headers: {
+                        'Authorization': `Bearer ${data.jwtPass}`
+                    }
+                });
+        });
     }
 }

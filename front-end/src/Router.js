@@ -11,8 +11,8 @@ export default new Router({
       component: () => import("./pages/Index")
     },
     {
-        path: "/teste",
-        component: () => import("./pages/Teste")
+        path: "/category",
+        component: () => import("./pages/Category")
       }
   ]
 });
