@@ -2,6 +2,8 @@
   <List 
     :componentType="componentType"
     :list="listUser"
+    :headerName="'Products'"
+    :destiny="{ description: 'Category registration'}"
   />
 </template>
 
@@ -17,25 +19,20 @@ export default {
     componentType: 'PRODUCT',
     listUser: [
       {
-        Id: 1,
-        Name: "Shawna Dubbin",
-        Email: "sdubbin0@geocities.com",
-        Gender: "Male",
-        JobTitle: "Assistant Media Planner"
+        Guid: 1111223,
+        Description: 'COLORADO',
+        Unity: 2,
+        UnitValue: 8.15,
+        Amount: 200,
+        Category: null
       },
       {
-        Id: 2,
-        Name: "Odette Demageard",
-        Email: "odemageard1@spotify.com",
-        Gender: "Famale",
-        JobTitle: "Account Coordinator"
-      },
-      {
-        Id: 3,
-        Name: "Vera Taleworth",
-        Email: "vtaleworth2@google.ca",
-        Gender: "Male",
-        JobTitle: "Community Outreach Specialist"
+        Guid: 11111000000,
+        Description: 'CAFÉ PELÉ',
+        Unity: 1,
+        UnitValue: 3.05,
+        Amount: 300,
+        Category: null
       }
     ]
   })

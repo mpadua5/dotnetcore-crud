@@ -1,12 +1,13 @@
 <template>
-  <div class="w-screen px-20">
+  <div class="w-screen px-20 pt-5">
     <md-table md-card>
       <md-table-toolbar>
-        <h1 class="md-title">Products</h1>
+        <h1 class="md-title">{{this.headerName}}</h1>
         <md-button class="md-fab md-primary" @click="changeShowModal(true)">
           <md-icon>add</md-icon>
         </md-button>
       </md-table-toolbar>
+      <a href="/teste"><h4 class="mx-6">{{this.destiny.description}}</h4></a>
 
       <md-table-row>
         <md-table-head v-for="itemHeader in listHeader" :key="itemHeader">{{itemHeader}}</md-table-head>
@@ -14,17 +15,32 @@
         <md-table-head>Delete</md-table-head>
       </md-table-row>
 
-      <md-table-row v-for="itens in list" :key="itens">
+      <md-table-row v-for="itens in list" :key="itens[0]">
         <md-table-cell v-for="value in itens" :key="value">{{ value }}</md-table-cell>
-        <md-table-cell>EDITAR</md-table-cell>
-        <md-table-cell>DELETAR</md-table-cell>
+
+        <md-table-cell>
+          <md-button
+            class="md-icon-button md-dense md-raised md-primary"
+            @click="changeShowModal(true, itens)"
+          >
+            <md-icon>edit</md-icon>
+          </md-button>
+        </md-table-cell>
+
+        <md-table-cell>
+          <md-button class="md-icon-button md-dense md-raised md-accent">
+            <md-icon>delete</md-icon>
+          </md-button>
+        </md-table-cell>
       </md-table-row>
     </md-table>
 
-    <modal 
-        v-if="showModal" 
-        :componentType="componentType"
-        @close="changeShowModal(false)" />
+    <modal
+      v-if="showModal"
+      :componentType="componentType"
+      :obj="obj"
+      @close="changeShowModal(false)"
+    />
   </div>
 </template>
 
@@ -37,21 +53,25 @@ export default {
     Modal
   },
   props: {
-      componentType: String,
-      list: [Object]
+    headerName: String,
+    destiny: Object,
+    componentType: String,
+    list: Array
   },
   computed: {
-      listHeader() {
-          return Object.keys(this.list[0])
-      }
+    listHeader() {
+      return Object.keys(this.list[0]);
+    }
   },
   data: () => ({
     showModal: false,
+    obj: null
   }),
   methods: {
-      changeShowModal(value) {
-          this.showModal = value;
-      }
+    changeShowModal(value, obj) {
+      this.obj = obj;
+      this.showModal = value;
+    }
   }
 };
 </script>

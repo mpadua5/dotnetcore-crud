@@ -10,13 +10,14 @@
           </div>
 
           <div class="modal-body">
-              <form-product v-if="componentType == 'PRODUCT'" />
+              <form-product :product="this.objAlter" @changeProduct="this.changeProduct" v-if="componentType == 'PRODUCT'" />
           </div>
 
           <div class="modal-footer">
-            <slot name="footer">
-              <button class="modal-default-button" @click="this.closeModal">OK</button>
-            </slot>
+            <div class="content-center">
+              <md-button class="md-raised md-primary" @click="() => this.aqui()">Save</md-button>
+              <md-button class="md-accent" @click="() => this.$emit('close')">Cancel</md-button>
+            </div>
           </div>
         </div>
       </div>
@@ -33,15 +34,24 @@ export default {
       FormProduct
   },
   props: {
-      componentType: String
+      componentType: String,
+      obj: Object
   },
+  beforeMount() {
+      this.objAlter = this.obj
+      // eslint-disable-next-line no-debugger
+      debugger;
+  },
+  data: () =>({
+      objAlter: null
+  }),
   methods: {
-    reset() {
-      
+    changeProduct(obj){
+        this.objAlter = obj;
     },
-    closeModal() {
-        this.reset();
-        this.$emit('close');
+    aqui(){
+        // eslint-disable-next-line no-debugger
+        debugger;
     }
   }
 };
