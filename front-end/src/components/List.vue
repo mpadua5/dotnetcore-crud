@@ -28,7 +28,8 @@
         </md-table-cell>
 
         <md-table-cell>
-          <md-button class="md-icon-button md-dense md-raised md-accent">
+          <md-progress-spinner v-if="isRemoveLoading" class="md-accent" :md-diameter="30" md-mode="indeterminate" />
+          <md-button v-if="!isRemoveLoading" class="md-icon-button md-dense md-raised md-accent" @click="$emit('removeItem', itens)">
             <md-icon>delete</md-icon>
           </md-button>
         </md-table-cell>
@@ -56,7 +57,8 @@ export default {
     headerName: String,
     destiny: Object,
     componentType: String,
-    list: Array
+    list: Array,
+    isRemoveLoading: Boolean
   },
   computed: {
     listHeader() {
@@ -73,6 +75,8 @@ export default {
     changeShowModal(value, obj) {
       this.obj = obj;
       this.showModal = value;
+      if (!value)
+        this.$emit('loadList');
     }
   }
 };

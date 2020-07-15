@@ -28,7 +28,7 @@ namespace DotnetCoreCrud.Data.Migrations
                     unit_value = table.Column<decimal>(type: "decimal(6,2)", nullable: false),
                     amount = table.Column<float>(type: "float(6,3)", nullable: false),
                     unity = table.Column<string>(type: "char(3)", nullable: false),
-                    product_category = table.Column<Guid>(nullable: false)
+                    product_category = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -38,7 +38,7 @@ namespace DotnetCoreCrud.Data.Migrations
                         column: x => x.product_category,
                         principalTable: "Category",
                         principalColumn: "guid",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(

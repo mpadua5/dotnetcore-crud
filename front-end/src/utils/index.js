@@ -1,5 +1,5 @@
-import units from './units.util';
+import UnitysUtil from './units.util';
 
-export default {
-    units
+export {
+    UnitysUtil
 }

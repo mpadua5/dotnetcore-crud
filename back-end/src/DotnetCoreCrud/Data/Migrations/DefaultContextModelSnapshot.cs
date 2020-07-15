@@ -14,7 +14,7 @@ namespace DotnetCoreCrud.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.5")
+                .HasAnnotation("ProductVersion", "3.1.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("DotnetCoreCrud.Domain.Entities.Category", b =>
@@ -60,7 +60,6 @@ namespace DotnetCoreCrud.Data.Migrations
                         .HasColumnType("char(3)");
 
                     b.Property<Guid?>("product_category")
-                        .IsRequired()
                         .HasColumnType("char(36)");
 
                     b.HasKey("Guid");
@@ -74,9 +73,7 @@ namespace DotnetCoreCrud.Data.Migrations
                 {
                     b.HasOne("DotnetCoreCrud.Domain.Entities.Category", "Category")
                         .WithMany("Products")
-                        .HasForeignKey("product_category")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("product_category");
                 });
 #pragma warning restore 612, 618
         }
