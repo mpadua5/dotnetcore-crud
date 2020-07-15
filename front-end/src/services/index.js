@@ -1,5 +1,5 @@
 import ProductService from "./product.service";
 
-export default {
+export {
     ProductService
 }
