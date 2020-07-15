@@ -24,6 +24,8 @@ namespace DotnetCoreCrud
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
+
             services.AddControllers()
                 .AddNewtonsoftJson();
 
@@ -65,7 +67,6 @@ namespace DotnetCoreCrud
             });
 
             JwtConfiguration.Configuration(services);
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -75,6 +76,11 @@ namespace DotnetCoreCrud
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(builder => builder
+                .SetIsOriginAllowed(origin => true)
+                .AllowAnyMethod()
+                .AllowAnyHeader());
 
             app.UseHttpsRedirection();
             app.UseRouting();
