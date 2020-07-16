@@ -61,7 +61,7 @@ export default {
             console.log(err);
             this.isLoading = false;
             this.resultService =
-              "It was not possible to insert the product, check the data provided.";
+              "It was not possible to insert the category, check the data provided.";
           });
       if (this.methodSave === "PUT")
         CategoryService.put(objSave)
@@ -73,7 +73,7 @@ export default {
             console.log(err);
             this.isLoading = false;
             this.resultService =
-              "It was not possible to update the product, check the data provided.";
+              "It was not possible to update the category, check the data provided.";
           });
     }
   }

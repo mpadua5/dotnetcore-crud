@@ -13,7 +13,7 @@ services:
       MYSQL_DATABASE: ${DB_NAME}  
 
   backend:
-    build: .
+    build: ./back-end
     image: "api-${APPLICATION_NAME}"
     container_name: "api-${APPLICATION_NAME}"
     expose: 
@@ -27,3 +27,18 @@ services:
       DB_PASSWORD: ${DB_PASSWORD}
     depends_on: 
       - db
+
+  frontend:
+    build: 
+      context: ./front-end
+      args: 
+        VUE_APP_API_URL: ${VUE_APP_API_URL}
+    image: "front-${APPLICATION_NAME}"
+    container_name: "front-${APPLICATION_NAME}"    
+    expose: 
+      - 80
+    ports: 
+      - "9000:80"
+    depends_on: 
+      - db
+      - backend

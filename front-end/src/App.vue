@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-debugger */
 <template>
   <div id="app">
     <div class="container mt-3">
